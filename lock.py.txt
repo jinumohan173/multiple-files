@@ -1,0 +1,17 @@
+from multiprocessing import Process, Lock
+import time
+def f(l, i):
+	while True:
+		if(i == 3):			
+			l.acquire()
+			print '#############', i			
+			l.release()
+			time.sleep(5)
+		print '*******************', i
+		time.sleep(1)
+
+if __name__ == '__main__':
+    lock = Lock()
+
+    for num in range(10):
+        Process(target=f, args=(lock, num)).start()
